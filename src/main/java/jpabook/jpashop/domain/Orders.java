@@ -1,6 +1,9 @@
 package jpabook.jpashop.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -13,6 +16,7 @@ import static javax.persistence.FetchType.LAZY;
 @Entity
 //@Table(name = "orders")
 @Getter @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Orders {
 
     @Id
@@ -79,7 +83,7 @@ public class Orders {
         }
     }
 
-    //==조회 로직s
+    //==조회 로직
     /**
      * 전체 주문 가격 조회
      */
