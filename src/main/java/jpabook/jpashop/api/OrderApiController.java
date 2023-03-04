@@ -11,6 +11,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
@@ -45,14 +46,29 @@ public class OrderApiController {
         return result;
     }
 
+
     @GetMapping("/api/v3/orders")
     public List<OrderDto> ordersV3() {
-        List<Orders> orders = orderRepository.findAllWithItem();
+        List<Orders> orders = orderRepository.findAllWithItem(); //-> ALL fetch join 방식 , 페이징이 불가능하다
         List<OrderDto> result = orders.stream()
                 .map(o -> new OrderDto(o))
                 .collect(Collectors.toList());
         return result;
     }
+
+    @GetMapping("/api/v3.1/orders")
+    public List<OrderDto> ordersV3_page(
+            @RequestParam(value = "offset", defaultValue = "0") int offset,
+            @RequestParam(value = "limit", defaultValue = "100") int limit
+    ) {
+        List<Orders> orders = orderRepository.findAllWithMemberDelivery(offset,limit);
+
+        List<OrderDto> result = orders.stream()
+                .map(o -> new OrderDto(o))
+                .collect(Collectors.toList());
+        return result;
+    }
+
 
     @Data
     static class OrderDto {

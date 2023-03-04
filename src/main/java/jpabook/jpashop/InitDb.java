@@ -52,10 +52,10 @@ public class InitDb {
             Member member = createMember("userB", "부산","2","2222");
             em.persist(member);
 
-            Book book1 = createBook("JPA1", 20000,  200);
+            Book book1 = createBook("SPRING BOOK1", 20000,  200);
             em.persist(book1);
 
-            Book book2 = createBook("JPA2", 40000,  400);
+            Book book2 = createBook("SPRING BOOK2", 40000,  400);
             em.persist(book2);
 
             OrderItem orderItem1 = OrderItem.createOrderItem(book1, 20000, 25);

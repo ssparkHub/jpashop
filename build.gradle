@@ -37,9 +37,9 @@ dependencies {
 //	implementation 'com.github.gavlyukovsiv:p6spy-spring-boot-stater:1.5.6'
 
 	testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
-	compileOnly 'org.projectlombok:lombok'
+	compileOnly 'org.projectlombok:lombok:1.18.20'
+	annotationProcessor 'org.projectlombok:lombok:1.18.20'
 	runtimeOnly 'com.h2database:h2'
-	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 

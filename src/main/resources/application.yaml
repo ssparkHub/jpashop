@@ -1,9 +1,10 @@
+
+
 spring:
   datasource:
     url: jdbc:h2:tcp://localhost/~/jpashop;
     username: sa
     driver-class-name: org.h2.Driver
-
 
   jpa:
     hibernate:
@@ -12,6 +13,7 @@ spring:
       hibernate:
 #        show_sql: true
         format_sql: true
+        default_batch_fetch_size: 100 # where절의 in 조건에 들어갈 갯수를 정한다 = collection의 갯수
 
 logging:
   level:
