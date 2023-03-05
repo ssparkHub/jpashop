@@ -73,6 +73,10 @@ public class OrderApiController {
         return result;
     }
 
+    /**
+     * V4 ~ V6 = @Using DTO
+     */
+
     @GetMapping("/api/v4/orders")
     public List<OrderQueryDto> ordersV4() {
         return orderQueryRepository.findOrderQueryDtos();
