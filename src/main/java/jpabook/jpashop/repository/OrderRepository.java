@@ -1,7 +1,8 @@
 package jpabook.jpashop.repository;
 
-import jpabook.jpashop.domain.Member;
-import jpabook.jpashop.domain.Orders;
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.impl.JPAQueryFactory;
+import jpabook.jpashop.domain.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
@@ -17,6 +18,7 @@ import java.util.List;
 public class OrderRepository {
 
     private final EntityManager em;
+
 
     public void save(Orders orders) {
         em.persist(orders);
@@ -50,6 +52,35 @@ public class OrderRepository {
         TypedQuery<Orders> query = em.createQuery(cq).setMaxResults(1000); //최대 1000건
 
         return query.getResultList();
+    }
+
+    public List<Orders> findAll(OrderSearch orderSearch) {
+        QOrders orders = QOrders.orders;
+        QMember member = QMember.member;
+
+        JPAQueryFactory query = new JPAQueryFactory(em);
+
+        return query
+                .select(orders)
+                .from(orders)
+                .join(orders.member, member)
+                .where(statusEq(orderSearch.getOrderStatus())) //동적쿼리 적용
+                .where(nameLike(orderSearch.getMemberName()))
+                .limit(1000)
+                .fetch();
+    }
+
+    private static BooleanExpression nameLike(String memberName) {
+        if(!StringUtils.hasText(memberName));
+        return QMember.member.name.like(memberName);
+    }
+
+    private BooleanExpression statusEq(OrderStatus orderStatus) {
+        if(orderStatus == null) {
+            return null;
+        }
+
+        return QOrders.orders.status.eq(orderStatus);
     }
 
 

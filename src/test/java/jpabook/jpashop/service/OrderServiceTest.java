@@ -9,7 +9,6 @@ import jpabook.jpashop.domain.item.Item;
 import jpabook.jpashop.domain.item.NotEnoughStockException;
 import jpabook.jpashop.repository.OrderRepository;
 import org.junit.Test;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -30,7 +29,7 @@ public class OrderServiceTest {
     @Autowired OrderService orderService;
     @Autowired OrderRepository orderRepository;
 
-    @DisplayName("주문비즈니스 로직테스트")
+
     @Test
     public void 상품주문() throws Exception {
         //given
@@ -55,7 +54,6 @@ public class OrderServiceTest {
 
 
 
-    @DisplayName("재고수량 초과 주문 시 예외 발생 테스트")
     @Test(expected = NotEnoughStockException.class)
     public void 상품주문_재고수량초과() {
 
